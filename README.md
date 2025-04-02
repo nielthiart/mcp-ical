@@ -145,6 +145,37 @@ Create or edit `~/Library/Application\ Support/Claude/claude_desktop_config.json
 /Applications/Claude.app/Contents/MacOS/Claude
 ```
 
+Alternatively, if you're willing to risk it, you can [manually grant Claude calendar access](https://lenticular.zone/macos-tcc-claude-mcp/). The following is tested on macOS 15.4 and requires full disk access for your terminal emulator.
+
+> ⚠️ **Warning**: This changes your app permissions database on macOS.
+
+```bash
+sqlite3 ~/Library/Application\ Support/com.apple.TCC/TCC.db <<EOF
+REPLACE INTO access 
+VALUES(
+ 'kTCCServiceCalendar',
+ 'com.anthropic.claudefordesktop',
+ 0,
+ 2,
+ 2,
+ 2,
+ NULL,
+ NULL,
+ 0,
+ 'UNUSED',
+ NULL,
+ 16,
+ CAST(strftime('%s','now') AS INTEGER),
+ NULL,
+ NULL,
+ 'UNUSED',
+ 0
+);
+EOF
+```
+
+After allowing `com.anthropic.claudefordesktop` access to the Calendar service, you can reopen Claude.app as you normally would.
+
 4. **Start Using!**
 ```
 Try: "What's my schedule looking like for next week?"
