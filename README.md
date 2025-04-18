@@ -110,7 +110,7 @@ Whilst this MCP server can be used with any MCP compatible client, the instructi
 1. **Clone and Setup**
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mcp-ical.git
+git clone https://github.com/Omar-V2/mcp-ical.git
 cd mcp-ical
 
 # Install dependencies
