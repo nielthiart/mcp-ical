@@ -35,7 +35,7 @@
 
 ## Calendar Access Configuration
 
-MacOS Calendar Service access is required for the MCP iCal server to function properly. Follow one of the methods below to grant calendar access to your Terminal app or to Claude.
+macOS Calendar Service access is required for the MCP iCal server to function properly. Follow one of the methods below to grant calendar access to your Terminal app or to Claude.
 
 ### Method 1: Launch Claude from Terminal (Recommended)
 
