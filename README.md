@@ -147,53 +147,7 @@ Run the following command in your terminal.
 /Applications/Claude.app/Contents/MacOS/Claude
 ```
 
-### Manually Grant Calendar Access
-
-Alternatively, if you're willing to use an undocumented macOS feature, you can [manually grant Claude calendar access](https://lenticular.zone/macos-tcc-claude-mcp/). The following method has been tested on macOS 15.4 and requires full disk access for your terminal emulator.
-
-> ⚠️ **Warning**: This method modifies the TCC database directly, which is not recommended by Apple. Use at your own risk.
-
-> ⚠️ Modifying the TCC database directly can potentially cause system instability or security issues. This is an unofficial method that bypasses Apple's permission system, and future macOS updates may change how permissions work. Always back up your TCC database before making changes (as shown below), and proceed at your own risk. If something goes wrong, you may need to reset all TCC permissions or restore from backup.
-
-```bash
-# Backup TCC database to your desktop
-# This is a critical step! Always backup your TCC database before making changes.
-cp ~/Library/Application\ Support/com.apple.TCC/TCC.db ~/Desktop/TCC_backup.db
-
-# Grant Calendar access to Claude
-# This command modifies the TCC database to allow access for the specified bundle identifier.
-sqlite3 ~/Library/Application\ Support/com.apple.TCC/TCC.db <<EOF
-REPLACE INTO access 
-VALUES(
- 'kTCCServiceCalendar',
- 'com.anthropic.claudefordesktop',
- 0,
- 2,
- 2,
- 2,
- NULL,
- NULL,
- 0,
- 'UNUSED',
- NULL,
- 16,
- CAST(strftime('%s','now') AS INTEGER),
- NULL,
- NULL,
- 'UNUSED',
- 0
-);
-EOF
-```
-
-After allowing `com.anthropic.claudefordesktop` access to the Calendar service, you can reopen Claude.app as you normally would.
-
-If you want to revert the changes made to the TCC database, you can use macOS's built-in `tccutil` command to reset the Calendar permissions for Claude:
-
-```bash
-# Reset Calendar permissions for Claude
-tccutil reset Calendar com.anthropic.claudefordesktop
-```
+> ⚠️ **Warning**: Alternatively, you can [manually grant calendar access](docs/install.md#method-2-manually-grant-calendar-access), but this involves modifying system files and should only be done if you understand the risks involved.
 
 4. **Start Using!**
 ```
